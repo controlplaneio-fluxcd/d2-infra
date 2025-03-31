@@ -6,7 +6,7 @@ spec:
   interval: 1h
   url: oci://ghcr.io/prometheus-community/charts/kube-prometheus-stack
   ref:
-    tag: "70.2.1" # {"$imagepolicy": "infra:kube-prometheus-stack:tag"}
+    tag: "70.3.0" # {"$imagepolicy": "infra:kube-prometheus-stack:tag"}
 ---
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease

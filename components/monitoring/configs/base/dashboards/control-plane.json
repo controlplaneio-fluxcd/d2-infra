@@ -614,7 +614,7 @@
           "datasource": {
             "uid": "${DS_PROMETHEUS}"
           },
-          "expr": "sum(container_memory_working_set_bytes{namespace=\"$namespace\",container!=\"POD\",container!=\"\",pod=~\".*-controller-.*\"}) by (pod)",
+          "expr": "sum(go_memory_classes_total_bytes{namespace=\"flux-system\",pod=~\".*-(controller|operator)-.*\"}) by (pod)",
           "hide": false,
           "interval": "",
           "legendFormat": "{{pod}}",

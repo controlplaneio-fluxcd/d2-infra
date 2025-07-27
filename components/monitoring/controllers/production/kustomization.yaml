@@ -8,8 +8,8 @@ patches:
         path: /spec/values/prometheus/prometheusSpec/retention
         value: 48h
     target:
-        kind: HelmRelease
-        name: kube-prometheus-stack
+      kind: HelmRelease
+      name: kube-prometheus-stack
 # Remove subcomponent based on environment
 #  - patch: |
 #      $patch: delete

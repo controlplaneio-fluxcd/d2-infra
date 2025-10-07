@@ -22,4 +22,6 @@ spec:
     kind: OCIRepository
     name: cert-manager-chart
   values:
-    installCRDs: true
+    crds:
+      enabled: true
+      keep: false

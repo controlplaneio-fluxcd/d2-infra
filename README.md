@@ -54,3 +54,23 @@ component/
 
 The CRDs and their controllers are reconciled before the custom resources to ensure that the
 controllers are ready to process the custom resources.
+
+## OCI Artifacts
+
+Each component is published to a dedicated OCI repository, for example, the `monitoring` component
+is published to `oci://ghcr.io/controlplaneio-fluxcd/d2-infra/monitoring` and is tagged as:
+
+- `latest` for the main branch commits that modify the component.
+- `vX.Y.Z` for the release tags matching the Git tag format `<component>/vX.Y.Z`.
+- `latest-stable` points to the latest artifact tagged as `vX.Y.Z`.
+
+GitHub workflows defined in `.github/workflows` are responsible for publishing and signing
+the component artifacts to GHCR using the
+[controlplaneio-fluxcd/distribution/actions/push](https://github.com/controlplaneio-fluxcd/distribution/tree/main/actions/push)
+GitHub Action.
+
+Workflows:
+
+- [push-artifact](https://github.com/controlplaneio-fluxcd/d2-infra/blob/main/.github/workflows/push-artifact.yaml) - triggered on commits to main branch, publishes the component artifact tagged as `latest`.
+- [release-artifact](https://github.com/controlplaneio-fluxcd/d2-infra/blob/main/.github/workflows/release-artifact.yaml) - triggered on Git tags matching the format `<component>/vX.Y.Z`, publishes the component artifact tagged as `vX.Y.Z` and updates the `latest-stable` tag to point to the new release.
+- [validate](https://github.com/controlplaneio-fluxcd/d2-infra/blob/main/.github/workflows/validate.yaml) - triggered on pull requests, validates the Kubernetes manifests including Flux Operator custom resources.

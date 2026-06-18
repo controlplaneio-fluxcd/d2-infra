@@ -14,3 +14,5 @@ configMapGenerator:
         grafana_dashboard: "1"
         app.kubernetes.io/part-of: flux
         app.kubernetes.io/component: monitoring
+      annotations:
+        kustomize.toolkit.fluxcd.io/substitute: disabled

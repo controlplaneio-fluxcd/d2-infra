@@ -40,14 +40,20 @@ jobs:
           
           echo "component=${COMPONENT}" >> $GITHUB_OUTPUT
           echo "version=${VERSION}" >> $GITHUB_OUTPUT
+      - name: Push artifact with version tag
+        uses: controlplaneio-fluxcd/distribution/actions/push@main
+        id: push-tag
+        with:
+          repository: ghcr.io/${{ github.repository }}/${{ steps.prep.outputs.component }}
+          path: "./components/${{ steps.prep.outputs.component }}"
+          tags: ${{ steps.prep.outputs.version }}
       - name: Push artifact
         uses: controlplaneio-fluxcd/distribution/actions/push@main
         id: push
         with:
           repository: ghcr.io/${{ github.repository }}/${{ steps.prep.outputs.component }}
           path: "./components/${{ steps.prep.outputs.component }}"
-          diff-tag: ${{ steps.prep.outputs.version }}
-          tags: latest-stable
+          diff-tag: latest-stable
       - name: Sign artifact
         if: steps.push.outputs.pushed == 'true'
         run: cosign sign --yes $DIGEST_URL
